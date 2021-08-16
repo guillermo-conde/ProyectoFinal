@@ -4,11 +4,16 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class MainActivity2 extends AppCompatActivity {
     //Declaracion de los botones
@@ -17,6 +22,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     //Declaracion de la matrizz
     String etiquetas[][] = new String[4][4];
+    List<Integer> valores = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);//int valores[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +58,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn0.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -59,6 +66,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn1.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn2.setOnClickListener(new View.OnClickListener() {
@@ -66,6 +74,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn2.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn3.setOnClickListener(new View.OnClickListener() {
@@ -73,6 +82,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn3.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn4.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +90,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn4.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn5.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +98,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn5.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn6.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +106,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn6.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn7.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +114,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn7.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn8.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +122,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn8.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn9.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +130,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn9.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn10.setOnClickListener(new View.OnClickListener() {
@@ -122,6 +138,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn10.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn11.setOnClickListener(new View.OnClickListener() {
@@ -129,6 +146,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn11.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn12.setOnClickListener(new View.OnClickListener() {
@@ -136,6 +154,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn12.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn13.setOnClickListener(new View.OnClickListener() {
@@ -143,6 +162,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn13.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn14.setOnClickListener(new View.OnClickListener() {
@@ -150,6 +170,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn14.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
         btn15.setOnClickListener(new View.OnClickListener() {
@@ -157,6 +178,7 @@ public class MainActivity2 extends AppCompatActivity {
             public void onClick(View v) {
                 String numero = (String) btn15.getText();
                 mover(numero);
+                comprobarJuego();
             }
         });
 
@@ -185,14 +207,15 @@ public class MainActivity2 extends AppCompatActivity {
 
 
     private void comenzar(){
+        Collections.shuffle(valores);
         //Lenado de la matriz
-        int cont = 1;
+        int cont = 0;
         for (int x = 0; x<4; x++){
             for (int y = 0; y<4; y++){
                 if (x == 3 && y ==3){
                     etiquetas[x][y]="";
                 }else{
-                    etiquetas[x][y]= String.valueOf(cont);
+                    etiquetas[x][y]= String.valueOf(valores.get(cont));
                     cont++;
                 }
             }
@@ -218,6 +241,86 @@ public class MainActivity2 extends AppCompatActivity {
         btn13.setText(etiquetas[3][1]);
         btn14.setText(etiquetas[3][2]);
         btn15.setText(etiquetas[3][3]);
+        if (btn0.getText() == ""){
+            btn0.setBackgroundColor(Color.GRAY);
+        }else{
+            btn0.setBackgroundColor(Color.WHITE);
+        }
+        if (btn1.getText() == ""){
+            btn1.setBackgroundColor(Color.GRAY);
+        }else{
+            btn1.setBackgroundColor(Color.WHITE);
+        }
+        if (btn2.getText() == ""){
+            btn2.setBackgroundColor(Color.GRAY);
+        }else{
+            btn2.setBackgroundColor(Color.WHITE);
+        }
+        if (btn3.getText() == ""){
+            btn3.setBackgroundColor(Color.GRAY);
+        }else{
+            btn3.setBackgroundColor(Color.WHITE);
+        }
+        if (btn4.getText() == ""){
+            btn4.setBackgroundColor(Color.GRAY);
+        }else{
+            btn4.setBackgroundColor(Color.WHITE);
+        }
+        if (btn5.getText() == ""){
+            btn5.setBackgroundColor(Color.GRAY);
+        }else{
+            btn5.setBackgroundColor(Color.WHITE);
+        }
+        if (btn6.getText() == ""){
+            btn6.setBackgroundColor(Color.GRAY);
+        }else{
+            btn6.setBackgroundColor(Color.WHITE);
+        }
+        if (btn7.getText() == ""){
+            btn7.setBackgroundColor(Color.GRAY);
+        }else{
+            btn7.setBackgroundColor(Color.WHITE);
+        }
+        if (btn8.getText() == ""){
+            btn8.setBackgroundColor(Color.GRAY);
+        }else{
+            btn8.setBackgroundColor(Color.WHITE);
+        }
+        if (btn9.getText() == ""){
+            btn9.setBackgroundColor(Color.GRAY);
+        }else{
+            btn9.setBackgroundColor(Color.WHITE);
+        }
+        if (btn10.getText() == ""){
+            btn10.setBackgroundColor(Color.GRAY);
+        }else{
+            btn10.setBackgroundColor(Color.WHITE);
+        }
+        if (btn11.getText() == ""){
+            btn11.setBackgroundColor(Color.GRAY);
+        }else{
+            btn11.setBackgroundColor(Color.WHITE);
+        }
+        if (btn12.getText() == ""){
+            btn12.setBackgroundColor(Color.GRAY);
+        }else{
+            btn12.setBackgroundColor(Color.WHITE);
+        }
+        if (btn13.getText() == ""){
+            btn13.setBackgroundColor(Color.GRAY);
+        }else{
+            btn13.setBackgroundColor(Color.WHITE);
+        }
+        if (btn14.getText() == ""){
+            btn14.setBackgroundColor(Color.GRAY);
+        }else{
+            btn14.setBackgroundColor(Color.WHITE);
+        }
+        if (btn15.getText() == ""){
+            btn15.setBackgroundColor(Color.GRAY);
+        }else{
+            btn15.setBackgroundColor(Color.WHITE);
+        }
     }
 
     private void mover(String etiqueta){
@@ -336,13 +439,15 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void comprobarJuego(){
-        int contDesc = 15;
+        int contAsc = 1;
         for (int x = 0; x<4; x++){
             for (int y = 1; y<4; y++){
-                if (etiquetas[x][y] == String.valueOf(contDesc) && contDesc == 0){
+                if (etiquetas[x][y] == String.valueOf(contAsc) && contAsc == 0){
                     tvExito.setText("¡Felicidades, has ganado! :D");
                 }
             }
         }
     }
+
+
 }
