@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">ProyectoFinal</string>
+    <string name="app_name">Proyecto Final</string>
+    <string name="titulo">Juego del 15</string>
+    <string name="titulo_instrucciones">¿CÓMO JUGAR?</string>
+    <string name="instrucciones">¡El objetivo del juego es colocar las piezas en orden haciendo movimientos que utilizan el espacio vacío!</string>
+    <string name="btn_iniciar">Iniciar</string>
+    <string name="btn_reiniciar">Reiniciar</string>
 </resources>
