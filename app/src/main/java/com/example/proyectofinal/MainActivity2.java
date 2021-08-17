@@ -19,10 +19,11 @@ public class MainActivity2 extends AppCompatActivity {
     //Declaracion de los botones
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn_Reiniciar;
     TextView tvExito;
+    boolean bandera = false;
 
     //Declaracion de la matrizz
     String etiquetas[][] = new String[4][4];
-    List<Integer> valores = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);//int valores[] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};
+    List<Integer> valores = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -220,6 +221,8 @@ public class MainActivity2 extends AppCompatActivity {
                 }
             }
         }
+        bandera = false;
+        comprobarJuego();
         llenarBotones();
         Toast.makeText(this, "Puedes comenzar", Toast.LENGTH_SHORT).show();
     }
@@ -320,6 +323,78 @@ public class MainActivity2 extends AppCompatActivity {
             btn15.setBackgroundColor(Color.GRAY);
         }else{
             btn15.setBackgroundColor(Color.WHITE);
+        }
+
+        if (btn0.getText().equals("1")){
+            bandera = true;
+            if (btn2.getText().equals("3")){
+                bandera = true;
+                if (btn3.getText().equals("4")){
+                    bandera = true;
+                    if (btn4.getText().equals("5")){
+                        bandera = true;
+                        if (btn5.getText().equals("6")){
+                            bandera = true;
+                            if (btn6.getText().equals("7")){
+                                bandera = true;
+                                if (btn7.getText().equals("8")){
+                                    bandera = true;
+                                    if (btn8.getText().equals("9")){
+                                        bandera = true;
+                                        if (btn9.getText().equals("10")){
+                                            bandera = true;
+                                            if (btn10.getText().equals("11")){
+                                                bandera = true;
+                                                if (btn11.getText().equals("12")){
+                                                    bandera = true;
+                                                    if (btn12.getText().equals("13")){
+                                                        bandera = true;
+                                                        if (btn13.getText().equals("14")){
+                                                            bandera = true;
+                                                            if (btn14.getText().equals("15")){
+                                                                bandera = true;
+                                                            }else{
+                                                                bandera = false;
+                                                            }
+                                                        }else{
+                                                            bandera = false;
+                                                        }
+                                                    }else{
+                                                        bandera = false;
+                                                    }
+                                                }else{
+                                                    bandera = false;
+                                                }
+                                            }else{
+                                                bandera = false;
+                                            }
+                                        }else{
+                                            bandera = false;
+                                        }
+                                    }else{
+                                        bandera = false;
+                                    }
+                                }else{
+                                    bandera = false;
+                                }
+                            }else{
+                                bandera = false;
+                            }
+                        }else{
+                            bandera = false;
+                        }
+                    }else{
+                        bandera = false;
+                    }
+                }else{
+                    bandera = false;
+                }
+            }else{
+                bandera = false;
+            }
+        }else{
+            bandera = false;
+
         }
     }
 
@@ -439,13 +514,10 @@ public class MainActivity2 extends AppCompatActivity {
     }
 
     private void comprobarJuego(){
-        int contAsc = 1;
-        for (int x = 0; x<4; x++){
-            for (int y = 1; y<4; y++){
-                if (etiquetas[x][y] == String.valueOf(contAsc) && contAsc == 0){
-                    tvExito.setText("¡Felicidades, has ganado! :D");
-                }
-            }
+        if (bandera == true){
+            tvExito.setText("¡Felicidades, has ganado :)!");
+        }else{
+            tvExito.setText("");
         }
     }
 
