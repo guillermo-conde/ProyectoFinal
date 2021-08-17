@@ -18,11 +18,13 @@ import java.util.List;
 public class MainActivity2 extends AppCompatActivity {
     //Declaracion de los botones
     Button btn0, btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10, btn11, btn12, btn13, btn14, btn15, btn_Reiniciar;
+    //Declaración del TExtView para el mensaje de victoria
     TextView tvExito;
+    //Bandera auxiliar para mostrar u ocultar el mensaje de victoria
     boolean bandera = false;
-
-    //Declaracion de la matrizz
+    //Declaracion de la matriz
     String etiquetas[][] = new String[4][4];
+    //Se crea una matriz para mas adelante usar "shuffle" y desordenar los números
     List<Integer> valores = Arrays.asList(1,2,3,4,5,6,7,8,9,10,11,12,13,14,15);
 
     @Override
@@ -48,18 +50,18 @@ public class MainActivity2 extends AppCompatActivity {
         btn14 = (Button)findViewById(R.id.btn14);
         btn15 = (Button)findViewById(R.id.btn15);
         btn_Reiniciar = (Button)findViewById(R.id.btnReiniciar);
-
+        //Instanciacion del Textview.
         tvExito = (TextView)findViewById(R.id.tv_exito);
 
-
+        //Funcion que inicializa a los botones.
         comenzar();
 
         btn0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String numero = (String) btn0.getText();
-                mover(numero);
-                comprobarJuego();
+                String numero = (String) btn0.getText();//Obtenemos la etiqueta del botón
+                mover(numero);//Mandamos a llamar a la funcion mover y le pasamos el valor de la etiqueta.
+                comprobarJuego();//Comprobamos si con este mocimiento el juego ha concluido
             }
         });
         btn1.setOnClickListener(new View.OnClickListener() {
@@ -186,48 +188,49 @@ public class MainActivity2 extends AppCompatActivity {
         btn_Reiniciar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder confirmacion = new AlertDialog.Builder(MainActivity2.this);
-                confirmacion.setTitle("Reiniciar Juego");
-                confirmacion.setMessage("¿Seguro que desea reiniciar el juego?");
-                confirmacion.setPositiveButton("Sí", new DialogInterface.OnClickListener() {
+                AlertDialog.Builder confirmacion = new AlertDialog.Builder(MainActivity2.this);//Instanciación de un cuadro de dialogo para confirmar si desea reiniciar el juego.
+                confirmacion.setTitle("Reiniciar Juego");//Titulo del cuadro de diálogo
+                confirmacion.setMessage("¿Seguro que desea reiniciar el juego?");//MEnsaje del cuadro de diálogo
+                confirmacion.setPositiveButton("Sí", new DialogInterface.OnClickListener() {//Colocamos un botón afirmativo
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        comenzar();
+                        comenzar();//Cuando se presione el botón afirmativo se manda a llamar la función comenzar para reiniciar el juego
                     }
                 });
-                confirmacion.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                confirmacion.setNegativeButton("No", new DialogInterface.OnClickListener() {//Colocamos un botón negativo
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         dialog.cancel();
-                    }
+                    }//Al presionarse el botón negativo, simplemente se cierra el cuadro de diálogo
                 });
-                confirmacion.show();
+                confirmacion.show(); //Mostramos el cuadro de diálogo
             }
         });
     }
 
 
     private void comenzar(){
-        Collections.shuffle(valores);
+        Collections.shuffle(valores);//Desordenamos la lista con los valores de las etiquetas aleatoriamente.
         //Lenado de la matriz
         int cont = 0;
         for (int x = 0; x<4; x++){
             for (int y = 0; y<4; y++){
-                if (x == 3 && y ==3){
-                    etiquetas[x][y]="";
+                if (x == 3 && y ==3){//Si nos encontramos en el último botón
+                    etiquetas[x][y]="";//Se llena con un espacio vacío.
                 }else{
-                    etiquetas[x][y]= String.valueOf(valores.get(cont));
+                    etiquetas[x][y]= String.valueOf(valores.get(cont));//Se llena la posición de la matriz en base al índice de la lista de valores
                     cont++;
                 }
             }
         }
-        bandera = false;
-        comprobarJuego();
-        llenarBotones();
-        Toast.makeText(this, "Puedes comenzar", Toast.LENGTH_SHORT).show();
+        bandera = false;//La bandera se inicializa en falso, últil cuando se desea reiniciar el juego
+        comprobarJuego();//Comprobamos el juego para desaparecer el mensaje de victoria, en caso de que se haya ganado el juego previo
+        llenarBotones();//Invocación de la función para colocar etiquetas a los botones
+        Toast.makeText(this, "Puedes comenzar", Toast.LENGTH_SHORT).show();//Indicamos al usuario que puede comenzazr a jugar
     }
 
     private void llenarBotones(){
+        //Asignamos los valores como etiquetas de cada botón
         btn0.setText(etiquetas[0][0]);
         btn1.setText(etiquetas[0][1]);
         btn2.setText(etiquetas[0][2]);
@@ -244,6 +247,8 @@ public class MainActivity2 extends AppCompatActivity {
         btn13.setText(etiquetas[3][1]);
         btn14.setText(etiquetas[3][2]);
         btn15.setText(etiquetas[3][3]);
+
+        //Condicionales para cambiar el color de blanco a gris cuando la etiqueta del botón esté vacía.
         if (btn0.getText() == ""){
             btn0.setBackgroundColor(Color.GRAY);
         }else{
@@ -325,6 +330,7 @@ public class MainActivity2 extends AppCompatActivity {
             btn15.setBackgroundColor(Color.WHITE);
         }
 
+        //Condicionales para validar que los botones tengan las etiquetas ordenadas correctamente para ganar, se cambia el estado de la bandera entre true o false.
         if (btn0.getText().equals("1")){
             bandera = true;
             if (btn2.getText().equals("3")){
@@ -398,11 +404,13 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
-    private void mover(String etiqueta){
-        int posX = 0, posY = 0;
+    private void mover(String etiqueta){//Se recibe como parámetro la etiqueta actual del botón
+        int posX = 0, posY = 0; //Se declaran las variables para almacenar los indices.
+        //Recorrido de la matriz
         for (int x = 0; x<4; x++){
             for (int y = 0; y<4; y++){
-                if (etiquetas[x][y] == etiqueta){
+                if (etiquetas[x][y] == etiqueta){//Si se encuentra coincidencia entre la etiqueta del botón y el elemento de la matriz
+                    //Se almacenan los índices de su ubicación
                     posX = x;
                     posY = y;
                     break;
@@ -410,60 +418,47 @@ public class MainActivity2 extends AppCompatActivity {
             }
         }
 
-        switch (posX){
-            case 0:
-                if (posY == 0){
+        /*En esta sección del código, se validan los movimientos posibles (mas no los permitidos, por ejemplo cuando el botón presionado se encuentra en la fila
+        superior, no es posible moverlo hacia arriba)*/
+        switch (posX){//En función de la posición en el eje X
+            case 0://Si se encuentra en la fila superior
+                if (posY == 0){//Si está en la esquina izquierda
                     valDcha(posX, posY);
                     valAbajo(posX, posY);
-                } else if (posY == 3){
+                } else if (posY == 3){//Si está en la esquina derecha
                     valIzda(posX, posY);
                     valAbajo(posX, posY);
-                }else{
-                    valDcha(posX, posY);
-                    valIzda(posX, posY);
-                    valAbajo(posX, posY);
-                }
-                break;
-            case 1:
-                if (posY == 0){
-                    valArriba(posX, posY);
-                    valDcha(posX, posY);
-                    valAbajo(posX, posY);
-                } else if (posY == 3){
-                    valArriba(posX, posY);
-                    valIzda(posX, posY);
-                    valAbajo(posX, posY);
-                }else{
-                    valArriba(posX, posY);
+                }else{//Si está en la posiciones centrales
                     valDcha(posX, posY);
                     valIzda(posX, posY);
                     valAbajo(posX, posY);
                 }
                 break;
+            case 1://Si se encuentra en la fila debajo de la superior (central)
             case 2:
-                if (posY == 0){
+                if (posY == 0){//Si está en el borde izquierdo
                     valArriba(posX, posY);
                     valDcha(posX, posY);
                     valAbajo(posX, posY);
-                } else if (posY == 3){
+                } else if (posY == 3){//Si está en el borde derecho
                     valArriba(posX, posY);
                     valIzda(posX, posY);
                     valAbajo(posX, posY);
-                }else{
+                }else{ //Si está en la posiciones centrales
                     valArriba(posX, posY);
                     valDcha(posX, posY);
                     valIzda(posX, posY);
                     valAbajo(posX, posY);
                 }
                 break;
-            case 3:
-                if (posY == 0){
+            case 3: //Si se encuentra en la fila inferior
+                if (posY == 0){//Si está en la esquina izquierda
                     valArriba(posX, posY);
                     valDcha(posX, posY);
-                } else if (posY == 3){
+                } else if (posY == 3){ //Si está en la esquina derecha
                     valArriba(posX, posY);
                     valIzda(posX, posY);
-                }else{
+                }else{ //Si está en la posiciones centrales
                     valArriba(posX, posY);
                     valDcha(posX, posY);
                     valIzda(posX, posY);
@@ -473,12 +468,15 @@ public class MainActivity2 extends AppCompatActivity {
 
     }
 
-    private void valArriba(int x, int y){
-        String temporalEtiqueta;
+    //Funciones para validar si un movimiento es permitido al comprobar si junto al botón hay un espacio vacío
+    private void valArriba(int x, int y){//Se reciben las coordenadas de ubicación dentro de la matriz
+        String temporalEtiqueta;//Auxiliar para hacer el cambio
         if (etiquetas[x-1][y] == ""){//¿Arriba esta vacío?
+            //Intercambio de los valores de la matriz
             temporalEtiqueta = etiquetas[x][y];
             etiquetas[x][y] = etiquetas[x-1][y];
             etiquetas[x-1][y] = temporalEtiqueta;
+            //Refrescamos las etiquetas de los botones
             llenarBotones();
         }
     }
@@ -495,7 +493,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void valAbajo(int x, int y){
         String temporalEtiqueta;
-        if (etiquetas[x+1][y] == ""){//¿Arriba esta vacío?
+        if (etiquetas[x+1][y] == ""){//¿Abajo esta vacío?
             temporalEtiqueta = etiquetas[x][y];
             etiquetas[x][y] = etiquetas[x+1][y];
             etiquetas[x+1][y] = temporalEtiqueta;
@@ -505,7 +503,7 @@ public class MainActivity2 extends AppCompatActivity {
 
     private void valIzda(int x, int y){
         String temporalEtiqueta;
-        if (etiquetas[x][y-1] == ""){//¿Arriba esta vacío?
+        if (etiquetas[x][y-1] == ""){//¿A la izquierda esta vacío?
             temporalEtiqueta = etiquetas[x][y];
             etiquetas[x][y] = etiquetas[x][y-1];
             etiquetas[x][y-1] = temporalEtiqueta;
@@ -513,6 +511,7 @@ public class MainActivity2 extends AppCompatActivity {
         }
     }
 
+    //Función para mostrar u ocultar el mensaje de victoria en función a la bandera.
     private void comprobarJuego(){
         if (bandera == true){
             tvExito.setText("¡Felicidades, has ganado :)!");
